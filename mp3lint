@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+cd "$(dirname "$BASH_SOURCE")"
+[[ -e env ]] || ./bootstrap
+. env/bin/activate
+python src/mp3lint.py

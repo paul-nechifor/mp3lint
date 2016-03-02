@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+root="$(cd "$(dirname "$BASH_SOURCE")"; pwd)"
+
+main() {
+    cd "$root"
+    virtualenv env
+    . env/bin/activate
+    pip install -U -r requirements.txt
+}
+
+main "$@"
