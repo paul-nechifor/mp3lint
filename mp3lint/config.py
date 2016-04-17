@@ -1,4 +1,5 @@
-from os.path import join
+from os.path import join, dirname
+from os import makedirs
 from json import load, dump
 
 from appdirs import user_config_dir
@@ -22,7 +23,12 @@ def load_config():
 
 
 def write_config(config):
-    with open(get_path(), 'w') as f:
+    path = get_path()
+    try:
+        makedirs(dirname(path))
+    except OSError:
+        pass
+    with open(path, 'w') as f:
         dump(config, f)
 
 

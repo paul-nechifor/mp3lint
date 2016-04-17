@@ -25,9 +25,11 @@ class ConfigWithPatchUserConfigDir(TestCase):
 
     def test_write_config(self, mock):
         with self.create_temp_dir() as dir:
-            mock.return_value = dir
+            inner_dir = join(dir, 'inner_dir')
+            mock.return_value = inner_dir
             config.write_config({'z': 5})
-            read = loads(open(join(dir, config.CONFIG_FILE_NAME)).read())
+            config_path = join(inner_dir, config.CONFIG_FILE_NAME)
+            read = loads(open(config_path).read())
         self.assertEqual({'z': 5}, read)
 
     def test_read_or_gen_config_with_file(self, mock):
