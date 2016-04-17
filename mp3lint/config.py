@@ -8,8 +8,14 @@ CONFIG_FILE_NAME = 'config.json'
 APP_NAME = 'mp3lint'
 
 
+class ConfigNotFoundError(Exception):
+    pass
+
+
 def load_config():
     path = join(user_config_dir(APP_NAME), CONFIG_FILE_NAME)
-    print(path)
-    with open(path) as f:
-        return load(f)
+    try:
+        with open(path) as f:
+            return load(f)
+    except IOError:
+        raise ConfigNotFoundError('File not found: "%s"' % path)
