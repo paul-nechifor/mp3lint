@@ -25,5 +25,18 @@ def write_config(config):
         dump(config, f)
 
 
+def read_or_gen_config():
+    try:
+        return load_config()
+    except ConfigNotFoundError:
+        gen_config = generate_config()
+        write_config(gen_config)
+        return gen_config
+
+
+def generate_config():
+    pass
+
+
 def get_path():
     return join(user_config_dir(APP_NAME), CONFIG_FILE_NAME)

@@ -7,9 +7,9 @@ from . import config
 from .test_utils import TestCase
 
 
-class EntryPoint(TestCase):
+@patch('mp3lint.config.user_config_dir')
+class ConfigWithPatchUserConfigDir(TestCase):
 
-    @patch('mp3lint.config.user_config_dir')
     def test_load_config(self, mock):
         with self.create_temp_dir() as dir:
             open(join(dir, config.CONFIG_FILE_NAME), 'w').write('{"a": 1}')
@@ -17,17 +17,36 @@ class EntryPoint(TestCase):
             conf = config.load_config()
         self.assertEqual({'a': 1}, conf)
 
-    @patch('mp3lint.config.user_config_dir')
     def test_return_error_when_file_not_found(self, mock):
         with self.create_temp_dir() as dir:
             mock.return_value = join(dir, 'asdf')
             with self.assertRaises(config.ConfigNotFoundError):
                 config.load_config()
 
-    @patch('mp3lint.config.user_config_dir')
     def test_write_config(self, mock):
         with self.create_temp_dir() as dir:
             mock.return_value = dir
             config.write_config({'z': 5})
             read = loads(open(join(dir, config.CONFIG_FILE_NAME)).read())
         self.assertEqual({'z': 5}, read)
+
+    def test_read_or_gen_config_with_file(self, mock):
+        with self.create_temp_dir() as dir:
+            mock.return_value = dir
+            open(join(dir, config.CONFIG_FILE_NAME), 'w').write('{"a": 1}')
+            conf = config.read_or_gen_config()
+        self.assertEqual({'a': 1}, conf)
+
+    @patch('mp3lint.config.generate_config')
+    def test_read_or_gen_config_without_file(
+        self,
+        mock_generate_config,
+        mock_user_config_dir,
+    ):
+        with self.create_temp_dir() as dir:
+            mock_user_config_dir.return_value = dir
+            mock_generate_config.return_value = {'asdf': 'ff'}
+            conf = config.read_or_gen_config()
+            written = loads(open(join(dir, config.CONFIG_FILE_NAME)).read())
+        self.assertEqual({'asdf': 'ff'}, conf)
+        self.assertEqual({'asdf': 'ff'}, written)
