@@ -9,7 +9,10 @@ setup(
     packages=find_packages(),
     long_description=open('README.rst').read(),
     entry_points={'console_scripts': ['mp3lint=mp3lint:entry_point']},
-    install_requires=['six==1.10.0'],
+    install_requires=[
+        'six==1.10.0',
+        'appdirs==1.4.0',
+    ],
     license='ISC',
     url='http://github.com/paul-nechifor/mp3lint',
 )
