@@ -1,7 +1,8 @@
 from unittest import TestCase
-from mock import patch
 
 import mp3lint
+
+from mock import patch
 
 
 class EntryPoint(TestCase):

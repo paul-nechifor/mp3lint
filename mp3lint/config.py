@@ -1,10 +1,10 @@
-from os.path import join, dirname
+from json import dump, load
 from os import makedirs
-from json import load, dump
+from os.path import dirname, join
 
 from appdirs import user_config_dir
-from six.moves import input
 
+from six.moves import input
 
 CONFIG_FILE_NAME = 'config.json'
 APP_NAME = 'mp3lint'

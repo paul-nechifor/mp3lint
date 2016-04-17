@@ -1,7 +1,7 @@
+from mock import patch
+
 from .linter import Linter
 from .test_utils import TestCase
-
-from mock import patch
 
 
 class TestLinter(TestCase):

@@ -1,8 +1,8 @@
+import sys
 from contextlib import contextmanager
 from shutil import rmtree
 from tempfile import mkdtemp
 from unittest import TestCase as UnitTestCase
-import sys
 
 from six import StringIO
 
