@@ -17,6 +17,13 @@ class TestCase(UnitTestCase):
         sys.stdout = original_stdout
 
     @contextmanager
+    def patch_stdin(self, text):
+        original_stdin = sys.stdin
+        sys.stdin = StringIO(text)
+        yield
+        sys.stdin = original_stdin
+
+    @contextmanager
     def create_temp_dir(self):
         dir = mkdtemp()
         yield dir

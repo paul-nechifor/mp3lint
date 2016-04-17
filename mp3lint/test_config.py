@@ -50,3 +50,11 @@ class ConfigWithPatchUserConfigDir(TestCase):
             written = loads(open(join(dir, config.CONFIG_FILE_NAME)).read())
         self.assertEqual({'asdf': 'ff'}, conf)
         self.assertEqual({'asdf': 'ff'}, written)
+
+
+class GenerateConfig(TestCase):
+
+    def test_generate_config(self):
+        with self.patch_stdin('/home/user/music\n'):
+            conf = config.generate_config()
+        self.assertEqual({'music_dir': '/home/user/music'}, conf)

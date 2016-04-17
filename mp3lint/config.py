@@ -2,6 +2,7 @@ from os.path import join
 from json import load, dump
 
 from appdirs import user_config_dir
+from six.moves import input
 
 
 CONFIG_FILE_NAME = 'config.json'
@@ -35,7 +36,10 @@ def read_or_gen_config():
 
 
 def generate_config():
-    pass
+    music_dir = input('What is your music dir: ')
+    return {
+        'music_dir': music_dir,
+    }
 
 
 def get_path():
