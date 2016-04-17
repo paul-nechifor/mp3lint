@@ -1,2 +1,5 @@
-/config.json
-/env
+*.coverage
+*.egg-info
+*.eggs
+*.pyc
+*.tox
