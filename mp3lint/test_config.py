@@ -1,3 +1,4 @@
+from json import loads
 from os.path import join
 
 from mock import patch
@@ -22,3 +23,11 @@ class EntryPoint(TestCase):
             mock.return_value = join(dir, 'asdf')
             with self.assertRaises(config.ConfigNotFoundError):
                 config.load_config()
+
+    @patch('mp3lint.config.user_config_dir')
+    def test_write_config(self, mock):
+        with self.create_temp_dir() as dir:
+            mock.return_value = dir
+            config.write_config({'z': 5})
+            read = loads(open(join(dir, config.CONFIG_FILE_NAME)).read())
+        self.assertEqual({'z': 5}, read)
