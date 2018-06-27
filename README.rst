@@ -1,3 +1,8 @@
+This repository has been moved to `gitlab.com/paul-nechifor/mp3lint <http://gitlab.com/paul-nechifor/mp3lint>`_.
+================================================================================================================
+
+Old readme:
+
 MP3 Lint
 ========
 
